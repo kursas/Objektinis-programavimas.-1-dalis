@@ -1,0 +1,56 @@
+#Sukurti klasę Sukaktis, kuri turėtų savybę data (galima atskirai įvesti metus, mėnesius ir kt.) ir metodus, kurie:
+#• Gražina, kiek nuo įvestos sukakties praėjo metų, savaičių, dienų, valandų, minučių, sekundžių
+#• Gražina, ar nurodytos sukakties metai buvo keliamieji
+#• Atima iš nurodytos datos nurodytą kiekį dienų ir gražina naują datą
+#• Prideda prie nurodytos datos nurodytą kiekį dienų ir gražina naują datą
+
+import datetime
+import calendar
+
+class Sukaktis:
+    def __init__(self, data="1988-11-09 00:00:00"):
+        self.data = datetime.datetime.strptime(data,"%Y-%m-%d %H:%M:%S")
+
+    def kiek_praejo_metu(self):
+        diff=datetime.datetime.now()-self.data
+        print("Metai:",round((diff.total_seconds()/(60*60*24*365)).__floor__()))
+        print("Savaites:",(diff.total_seconds()/(60*60*24*7)).__floor__())
+        print("Dienos",diff.days)
+        print("Valandos",(diff.total_seconds()/(60*60)).__floor__())
+        print("Minutes:",(diff.total_seconds()/(60)).__floor__())
+        print("Sekundes:",diff.total_seconds().__floor__())
+
+    def ar_keliamieji_metai(self):
+        if calendar.isleap(self.data.year):
+            print("Keliamieji")
+        else:
+            print("Ne keliamieji")
+    def nauja_data_minus(self,x=5):
+        x=int(input("Iveskite dienu skaiciu kurias norite atimti:"))
+        print(self.data-datetime.timedelta(days=x))
+
+    def nauja_data_plius(self,y=5):
+        y=int(input("Iveskite dienu skaiciu kurias norite prideti:"))
+        print(self.data + datetime.timedelta(days=y))
+
+
+data1 = Sukaktis("1980-11-14 00:00:00")
+data1.kiek_praejo_metu()
+data1.ar_keliamieji_metai()
+data1.nauja_data_minus()
+data1.nauja_data_plius()
+
+#output
+Metai: 42
+Savaites: 2198
+Dienos 15386
+Valandos 369283
+Minutes: 22157012
+Sekundes: 1329420744
+Keliamieji
+Iveskite dienu skaiciu kurias norite atimti:100
+1980-08-06 00:00:00
+Iveskite dienu skaiciu kurias norite prideti:50
+1981-01-03 00:00:00
+
+Process finished with exit code 0
