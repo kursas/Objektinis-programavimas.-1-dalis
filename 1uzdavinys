@@ -1,0 +1,99 @@
+# Parašyti klasę Sakinys, kuri turi savybę tekstas ir metodus, kurie:
+# • Gražina tekstą atbulai
+# • Gražina tekstą mažosiomis raidėmis
+# • Gražina tekstą didžiosiomis raidėmis
+# • Gražina žodį pagal nurodytą eilės numerį
+# • Gražina, kiek tekste yra nurodytų simbolių arba žodžių
+# • Gražina tekstą su pakeistu nurodytu žodžiu arba simboliu
+# • Atspausdina, kiek sakinyje yra žodžių, skaičių, didžiųjų ir mažųjų raidžių
+# Susikurti kelis klasės objektus ir išbandyti visus metodus
+
+class Sakinys:
+    def __init__(self,tekstas):
+        self.tekstas=tekstas
+
+    def tekstas_atbulai(self,tekstas):
+        atbulas=tekstas[::-1]
+        return atbulas
+    def tekstas_mazosios(self,tekstas):
+        mazos=tekstas.lower()
+        return mazos
+    def tekstas_dideles(self,tekstas):
+        dideles=tekstas.upper()
+        return dideles
+    def tekstas_eiles_numeris(self,tekstas):
+        str_list=self.tekstas.split()
+        eile=str_list[tekstas-1]
+        return eile
+    def paieska(self,ko_ieskom):
+        kiek_yra=0
+        ieskom_zodzio=self.tekstas.split()
+        if len(ko_ieskom)>1:
+            for item in ieskom_zodzio:
+                if item==ko_ieskom:
+                    kiek_yra += 1
+                else:
+                    pass
+        else:
+            for i in self.tekstas:
+                if i ==ko_ieskom:
+                    kiek_yra +=1
+                else:
+                    pass
+            print(f"Rasta simboliu:{kiek_yra}")
+            return kiek_yra
+
+    def replace_str(self,user_old_str,user_new_str):
+        naujas=self.tekstas.replace(user_old_str,user_new_str)
+        return naujas
+    def count(self):
+        str_list=self.tekstas.split()
+        str_len=len(self.tekstas)
+        w_counter=0
+        upl_counter=0
+        lwl_counter = 0
+        num_counter = 0
+        for i in str_list:
+            w_counter+=1
+
+        for i in self.tekstas:
+            if i.isupper():
+                upl_counter+=1
+        for i in self.tekstas:
+            if i.islower():
+                lwl_counter+=1
+        for i in self.tekstas:
+            if i.isdecimal():
+                num_counter+=1
+        print(
+            f"-Stringe yra zodziu:{w_counter}\n-Stringe yra simboliu su tarpais:{str_len}\n"
+            f"-Stringe yra dideliu raidziu:{upl_counter}\n-Stringe yra mazu raidziu:{lwl_counter}\n"
+            f"-Stringe yra skaiciu:{num_counter}\n")
+        return str_len, w_counter,upl_counter,lwl_counter,num_counter
+
+
+sakinys1=Sakinys("Labas VAkaRAs visiems21466 ate")
+print(sakinys1.tekstas_atbulai("vakaras"))
+print(sakinys1.tekstas_mazosios("VAKARAS"))
+print(sakinys1.tekstas_dideles("labas rytas"))
+print(sakinys1.tekstas_eiles_numeris(3))
+sakinys1.paieska("a")
+print(sakinys1.replace_str("Labas","Viso gero"))
+print(sakinys1.count())
+
+#output
+sarakav
+vakaras
+LABAS RYTAS
+visiems21466
+Rasta simboliu:4
+Viso gero VAkaRAs visiems21466 ate
+-Stringe yra zodziu:4
+-Stringe yra simboliu su tarpais:30
+-Stringe yra dideliu raidziu:5
+-Stringe yra mazu raidziu:17
+-Stringe yra skaiciu:5
+
+(30, 4, 5, 17, 5)
+
+Process finished with exit code 0
